@@ -46,3 +46,16 @@ Symfony Docker is available under the MIT License.
 ## Credits
 
 Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+
+## Notes
+1. This is a fork of [dunglas/symfony-docker](https://github.com/dunglas/symfony-docker)
+2. This fork is for personal use only
+3. This fork is not intended to be used by anyone else
+4. This fork is not intended to be used in production
+5. Run `` docker compose build --no-cache``
+6. Create ``.env``
+7. Run ``docker compose up -d --wait``
+8. Run ``docker compose exec php sh`` to enter the container
+9. Run inside container``php bin/console about`` to check the Symfony version
+10. To access the application, open ``https://localhost:4443`` in your favorite web browser 
+11. To stop the application, run ``docker compose down --remove-orphans``
