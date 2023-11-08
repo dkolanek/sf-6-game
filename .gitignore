@@ -11,3 +11,6 @@
 /.env
 .idea
 .idea/*
+.idea/GitlabLint.xml
+.idea/php.xml
+.idea/symfony-6-project.iml
