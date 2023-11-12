@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ title }}</h1>
+    <p>Aktualna data: {{ date|date('Y-m-d H:i:s') }}</p>
+
+    <h2>Wiadomości:</h2>
+    <ul>
+        {% for message in messages %}
+            <li>{{ message.id }}: {{ message.text }} (autor: {{ message.author }})</li>
+        {% endfor %}
+    </ul>
+
+    <p>Liczby: {{ numbers|join(', ') }}</p>
+
+    <p>Pogoda: {{ weather.temperature }} stopni, {{ weather.condition }}</p>
+
+    <p>Użytkownik: {{ isPremiumUser ? 'Premium' : 'Standardowy' }}</p>
+
+    <p>{{ user.name }} ({{ user.email }})</p>
+
+    <p>Liczba wyświetleń strony: {{ pageViews }}</p>
+
+    <p>Popularne tagi: {{ popularTags|join(', ') }}</p>
+
+    <p>Ocena strony: {{ rating }}/5</p>
+{% endblock %}
+
+{% block title %}
+    {{ title|capitalize }}
+{% endblock %}

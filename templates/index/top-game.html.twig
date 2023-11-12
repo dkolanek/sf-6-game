@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Top Game</h1>
+    <p>Twoja najlepsza gra to {{ topGames|first }}</p>
+{% endblock %}
+
+{% block title %}
+Top Game
+{% endblock %}
+
