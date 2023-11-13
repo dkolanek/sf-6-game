@@ -55,6 +55,8 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 ## Composer
 1. Add templates Twig pack``composer require templates``
 2. Add symfony asset ``composer require symfony/asset`` 
+3. Add symfony profiler ``composer require --dev symfony/profiler-pack``
+4. Add symfony maker ``composer require --dev symfony/maker-bundle``
 
 ## Notes
 1. This is a fork of [dunglas/symfony-docker](https://github.com/dunglas/symfony-docker)
@@ -73,3 +75,7 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 ## Symfony commands
 1. Check the Symfony version ``php bin/console about``
 2. Check routers ``php bin/console debug:router``
+3. Check Autowire Classes ``php bin/console debug:autowiring``  
+4. Regenerate app secret ``php bin/console make:command regenerate-app-secret`` or by openssl ``openssl rand -hex 32``  
+5. Clear cache ``php bin/console cache:clear``  
+6. List all parameters ``php bin/console debug:container --parameters``

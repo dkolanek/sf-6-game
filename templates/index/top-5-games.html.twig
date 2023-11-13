@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Top 5 Games
+{% endblock %}
+
+{% block body %}
+    <h1>Top 5 Games</h1>
+    <ol>
+        {% for game in topGames %}
+            <li>{{ game }}</li>
+        {% endfor %}
+    </ol>
+{% endblock %}
+
