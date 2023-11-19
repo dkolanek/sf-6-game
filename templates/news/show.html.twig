@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ news.title }}</h3>
+                <a href="{{ path('game_news_edit', {'id': news.id}) }}">Edit</a>
+                <a href="{{ path('game_news_delete', {'id': news.id}) }}">Delete</a>
+            </div>
+            <div class="panel-body">
+                <p>Publish date: {{ news.publishDate|date('d-m-Y') }}</p>
+                {% if news.editedDate is not null %}
+                    <p>Edit date: {{ news.editedDate|date('d-m-Y') }}</p>
+                {% endif %}
+                <p>Author: <strong>{{ news.author }}</strong></p>
+                <h2>Content:</h2>
+                <p>{{ news.content }}</p>
+
+                <section class="comments-section">
+                    <h2>Comments:</h2>
+                    <a href="{{ path('game_news_comment', {'id': news.id}) }}" class="btn btn-primary">Add Comment</a>
+                    {% for comment in news.comments %}
+                        <div class="comment">
+                            <p class="comment-title"><strong>Title:</strong> {{ comment.title }} - <span class="comment-date">{{ comment.createdDate|date('d-m-Y')}}</span> - <em>{{ comment.author }}</em></p>
+                            <div class="comment-content">{{ comment.content }}</div>
+                        </div>
+                    {% else %}
+                        <p>No comments found.</p>
+                    {% endfor %}
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+    Game News
+{% endblock %}
+

@@ -57,6 +57,7 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 2. Add symfony asset ``composer require symfony/asset`` 
 3. Add symfony profiler ``composer require --dev symfony/profiler-pack``
 4. Add symfony maker ``composer require --dev symfony/maker-bundle``
+5. Add Doctrine ``composer require symfony/orm-pack``
 
 ## Notes
 1. This is a fork of [dunglas/symfony-docker](https://github.com/dunglas/symfony-docker)
@@ -79,3 +80,7 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 4. Regenerate app secret ``php bin/console make:command regenerate-app-secret`` or by openssl ``openssl rand -hex 32``  
 5. Clear cache ``php bin/console cache:clear``  
 6. List all parameters ``php bin/console debug:container --parameters``
+7. Doctrine create database ``php bin/console doctrine:database:create``
+8. Doctrine create entity ``php bin/console make:entity``
+9. Doctrine create migration ``php bin/console make:migration``
+10. Doctrine migrate ``php bin/console doctrine:migrations:migrate``

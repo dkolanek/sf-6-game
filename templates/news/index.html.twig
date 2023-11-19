@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Game News {% endblock %}
+
+{% block body %}
+    <h1>News Games</h1>
+    <h3><a href="{{ path('game_news_add') }}">Add News</a></h3>
+
+    <div id="games">
+        <ul>
+            {% for news in newsList %}
+                <li>
+                    {{ news.id }} - {{ news.title }} - <a href="{{ path('game_news_show', { 'id': news.id }) }}">details</a>
+                </li>
+            {% else %}
+                <li>No Games News found</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

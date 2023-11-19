@@ -90,3 +90,51 @@ footer {
     width: 100%; /* Szerokość obrazka jest równa 100% kontenera */
     height: auto; /* Wysokość automatycznie dostosowuje się do szerokości, zachowując proporcje */
 }
+
+/* Style dla sekcji komentarzy */
+.comments-section {
+    margin-top: 2em;
+    background-color: #f7f7f7;
+    padding: 1em;
+    border-radius: 8px;
+}
+
+.comment {
+    margin-top: 1em;
+    padding: .5em;
+    background-color: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtelne cieniowanie dla lepszej widoczności */
+}
+
+.comment-title {
+    font-weight: bold;
+    margin-bottom: .5em;
+}
+
+.comment-date {
+    font-style: italic;
+    color: #666;
+}
+
+.comment-content {
+    margin-top: .5em;
+}
+
+/* Style dla przycisku dodawania komentarza */
+.btn-primary {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-decoration: none;
+    padding: .5em 1em;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    display: inline-block; /* umożliwia stosowanie paddingu i marginesu */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
