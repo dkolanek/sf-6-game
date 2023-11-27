@@ -51,6 +51,9 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 1.  [Symfony Recipes](https://github.com/symfony/recipes/blob/flex/main/RECIPES.md)
 2. [Symfony Flex](https://symfony.com/doc/current/setup/flex.html)
 3. [Symfony Twig](https://twig.symfony.com/)
+4. [Symfony Forms](https://symfony.com/doc/current/forms.html)
+5. [Symfony Doctrine](https://symfony.com/doc/current/doctrine.html)
+6. [Symfony Form types](https://symfony.com/doc/current/reference/forms/types.html)
 
 ## Composer
 1. Add templates Twig pack``composer require templates``
@@ -58,6 +61,8 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 3. Add symfony profiler ``composer require --dev symfony/profiler-pack``
 4. Add symfony maker ``composer require --dev symfony/maker-bundle``
 5. Add Doctrine ``composer require symfony/orm-pack``
+6. Add Form ``composer require symfony/form``
+7. Add Validator ``composer require symfony/validator``
 
 ## Notes
 1. This is a fork of [dunglas/symfony-docker](https://github.com/dunglas/symfony-docker)
@@ -84,3 +89,4 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 8. Doctrine create entity ``php bin/console make:entity``
 9. Doctrine create migration ``php bin/console make:migration``
 10. Doctrine migrate ``php bin/console doctrine:migrations:migrate``
+11. Create Form ``php bin/console make:form``

@@ -4,15 +4,18 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\News;
+use App\Form\CommentType;
+use App\Form\NewsType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class NewsController extends AbstractController
 {
     #[Route('/news', name: 'game_news')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function list(EntityManagerInterface $entityManager): Response
     {
         $newsList = $entityManager->getRepository(News::class)->findAll();
 
@@ -22,44 +25,84 @@ class NewsController extends AbstractController
     }
 
     #[Route('/news/{id}', name: 'game_news_show', requirements: ['id' => '\d+'])]
-    public function show(News $news): Response
+    public function show(News $news,EntityManagerInterface $entityManager, Request $request): Response
     {
+        $comment = new Comment();
+        $comment->setNews($news);
+
+        $form = $this->createForm(CommentType::class,$comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment = $form->getData();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Your comment were saved!'
+            );
+
+        }
 
         return $this->render('news/show.html.twig', [
             'news' => $news,
+            'form' => $form,
         ]);
     }
 
     #[Route('/news/add', name: 'game_news_add')]
-    public function add(EntityManagerInterface $entityManager): Response
+    public function new(EntityManagerInterface $entityManager, Request $request): Response
     {
-        $news = $entityManager->getRepository(News::class)->generate(true);
+        $form = $this->createForm(NewsType::class);
 
-        return $this->redirectToRoute('game_news_show', [
-            'id' => $news->getId(),
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $news = $form->getData();
+
+            $entityManager->persist($news);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Your changes were saved!'
+            );
+            return $this->redirectToRoute('game_news_show', [
+                'id' => $news->getId(),
+            ]);
+        }
+
+        return $this->render('news/new.html.twig', [
+            'form' => $form,
         ]);
     }
 
     #[Route('/news/edit/{id}', name: 'game_news_edit', requirements: ['id' => '\d+'])]
-    public function edit(EntityManagerInterface $entityManager, int $id): Response
+    public function edit(News $news ,EntityManagerInterface $entityManager, Request $request): Response
     {
-        $news = $entityManager->getRepository(News::class)->find($id);
+        $form = $this->createForm(NewsType::class, $news);
 
-        if (!$news) {
-            throw $this->createNotFoundException(
-                'No news found for id ' . $id
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $news = $form->getData();
+            $news->setEditedDate(new \DateTime('now'));
+
+            $entityManager->persist($news);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Your changes were saved!'
             );
+            return $this->redirectToRoute('game_news_show', [
+                'id' => $news->getId(),
+            ]);
         }
 
-        $news->setTitle('News Edited')
-            ->setContent('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam aliquam, nisl nisl aliquet nisl, quis aliquam nisl nisl nec nisl. Donec euismod, nisl eget aliquam aliquam, nisl nisl aliquet nisl, quis aliquam nisl nisl nec nisl.')
-            ->setAuthor('Author 1')
-            ->setEditedDate(new \DateTime('now'));
-
-        $entityManager->getRepository(News::class)->save($news, true);
-
-        return $this->redirectToRoute('game_news_show', [
-            'id' => $news->getId(),
+        return $this->render('news/edit.html.twig', [
+            'form' => $form,
         ]);
     }
 
@@ -78,26 +121,6 @@ class NewsController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('game_news');
-    }
-
-    #[Route('/news/comment{id}', name: 'game_news_comment', requirements: ['id' => '\d+'])]
-    public function comment(EntityManagerInterface $entityManager, int $id): Response
-    {
-        $news = $entityManager->getRepository(News::class)->find($id);
-
-        if (!$news) {
-            throw $this->createNotFoundException(
-                'No news found for id ' . $id
-            );
-        }
-        $comment = $entityManager->getRepository(Comment::class)->generate();
-        $news->addComment($comment);
-
-        $entityManager->getRepository(News::class)->save($news, true);
-
-        return $this->redirectToRoute('game_news_show', [
-            'id' => $news->getId(),
-        ]);
     }
 
 }

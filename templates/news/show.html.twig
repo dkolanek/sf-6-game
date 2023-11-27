@@ -19,7 +19,7 @@
 
                 <section class="comments-section">
                     <h2>Comments:</h2>
-                    <a href="{{ path('game_news_comment', {'id': news.id}) }}" class="btn btn-primary">Add Comment</a>
+{#                    <a href="{{ path('game_news_comment', {'id': news.id}) }}" class="btn btn-primary">Add Comment</a>#}
                     {% for comment in news.comments %}
                         <div class="comment">
                             <p class="comment-title"><strong>Title:</strong> {{ comment.title }} - <span class="comment-date">{{ comment.createdDate|date('d-m-Y')}}</span> - <em>{{ comment.author }}</em></p>
@@ -29,6 +29,7 @@
                         <p>No comments found.</p>
                     {% endfor %}
                 </section>
+                    {{ form(form) }}
             </div>
         </div>
     </div>

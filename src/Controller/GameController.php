@@ -3,27 +3,73 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Form\GameType;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class GameController extends AbstractController
 {
-    #[Route('/game', name: 'app_game')]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('/game/edit{id}', name: 'app_game_edit')]
+    public function edit(Game  $game,EntityManagerInterface $entityManager,Request $request): Response
     {
-        $game = new Game();
-        $game->setName('History line')
-            ->setDescription('strategiczna gra komputerowa firmy Blue Byte koncepcyjnie zbliżona do Battle Isle, a konkretnie do drugiego dodatku do tej gry: Moon of Chromos. Została osadzona w realiach I wojny światowej. Rozgrywka toczy się na 24 mapach, z których każda obejmuje umownie kolejne dwa miesiące wojny')
-            ->setScore(88)
-            ->setReleaseDate(new \DateTime('1992-01-01'));
+        $form = $this->createForm(GameType::class, $game);
 
-        $entityManager->getRepository(Game::class)->save($game, true);
+        $form->handleRequest($request);
 
-        return new Response('Game created! Id: ' . $game->getId());
+        if ($form->isSubmitted() && $form->isValid()){
+            $game = $form->getData();
+
+            $entityManager->persist($game);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Your changes were saved!'
+            );
+
+            return $this->redirectToRoute('app_game_show',['id'=>$game->getId()]);
+        }
+
+
+        return $this->render('game/edit.html.twig', [
+            'form' => $form,
+        ]);
     }
+
+    #[Route('/game/new', name: 'app_game_new')]
+    public function new(EntityManagerInterface $entityManager,Request $request): Response
+    {
+
+        $form = $this->createForm(GameType::class,null,[
+            'method' => 'POST',
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $game = $form->getData();
+
+            $entityManager->persist($game);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Your changes were saved!'
+            );
+
+            return $this->redirectToRoute('app_game_show',['id'=>$game->getId()]);
+        }
+
+
+        return $this->render('game/new.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
 
     #[Route('/game/{id}', name: 'app_game_show')]
     public function show(Game $game): Response
@@ -56,25 +102,25 @@ class GameController extends AbstractController
         ]);
     }
 
-    #[Route('/game/edit/{id}', name: 'app_game_edit')]
-    public function edit(EntityManagerInterface $entityManager, int $id): Response
-    {
-        $game = $entityManager->getRepository(Game::class)->find($id);
-
-        if (!$game) {
-            throw $this->createNotFoundException(
-                'No game found for id ' . $id
-            );
-        }
-
-        $game->setScore(90);
-
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_game_show', [
-            'id' => $game->getId(),
-        ]);
-    }
+//    #[Route('/game/edit/{id}', name: 'app_game_edit')]
+//    public function edit(EntityManagerInterface $entityManager, int $id): Response
+//    {
+//        $game = $entityManager->getRepository(Game::class)->find($id);
+//
+//        if (!$game) {
+//            throw $this->createNotFoundException(
+//                'No game found for id ' . $id
+//            );
+//        }
+//
+//        $game->setScore(90);
+//
+//        $entityManager->flush();
+//
+//        return $this->redirectToRoute('app_game_show', [
+//            'id' => $game->getId(),
+//        ]);
+//    }
 
     #[Route('/game/delete/{id}', name: 'app_game_delete')]
     public function delete(EntityManagerInterface $entityManager, int $id): Response
