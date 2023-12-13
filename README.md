@@ -63,6 +63,11 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 5. Add Doctrine ``composer require symfony/orm-pack``
 6. Add Form ``composer require symfony/form``
 7. Add Validator ``composer require symfony/validator``
+8. Add Security ``composer require symfony/security-bundle``
+9. Add Verify email bundle  ``composer require symfonycasts/verify-email-bundle``
+10. Add Doctrine annotations ``composer require doctrine/annotations``
+11. Add mailer ``composer require symfony/mailer``
+12. Add Rate limiter ``composer require symfony/rate-limiter``
 
 ## Notes
 1. This is a fork of [dunglas/symfony-docker](https://github.com/dunglas/symfony-docker)
@@ -90,3 +95,8 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 9. Doctrine create migration ``php bin/console make:migration``
 10. Doctrine migrate ``php bin/console doctrine:migrations:migrate``
 11. Create Form ``php bin/console make:form``
+12. Create Controller ``php bin/console make:controller``
+13. Create User ``php bin/console make:user``
+14. Create Auth ``php bin/console make:auth``
+15. Create  manually hash a password  ``php bin/console security:hash-password``
+16. Create registration ``php bin/console make:registration-form``

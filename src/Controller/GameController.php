@@ -16,6 +16,8 @@ class GameController extends AbstractController
     #[Route('/game/edit{id}', name: 'app_game_edit')]
     public function edit(Game  $game,EntityManagerInterface $entityManager,Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDIT');
+
         $form = $this->createForm(GameType::class, $game);
 
         $form->handleRequest($request);
@@ -43,6 +45,7 @@ class GameController extends AbstractController
     #[Route('/game/new', name: 'app_game_new')]
     public function new(EntityManagerInterface $entityManager,Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADD');
 
         $form = $this->createForm(GameType::class,null,[
             'method' => 'POST',
@@ -74,6 +77,8 @@ class GameController extends AbstractController
     #[Route('/game/{id}', name: 'app_game_show')]
     public function show(Game $game): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         return $this->render('game/show.html.twig', [
             'game' => $game,
         ]);
@@ -82,6 +87,8 @@ class GameController extends AbstractController
     #[Route('/games', name: 'app_game_list')]
     public function list(EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $games = $entityManager->getRepository(Game::class)->findAll();
 
         return $this->render('game/list.html.twig', [
@@ -95,6 +102,7 @@ class GameController extends AbstractController
     #[Route('/games/top', name: 'app_game_top_list')]
     public function topList(EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $games = $entityManager->getRepository(Game::class)->findAllEqualScoreDql(90);
 
         return $this->render('game/toplist.html.twig', [
@@ -125,6 +133,8 @@ class GameController extends AbstractController
     #[Route('/game/delete/{id}', name: 'app_game_delete')]
     public function delete(EntityManagerInterface $entityManager, int $id): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $game = $entityManager->getRepository(Game::class)->find($id);
 
         if (!$game) {

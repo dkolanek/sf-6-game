@@ -17,6 +17,8 @@ class NewsController extends AbstractController
     #[Route('/news', name: 'game_news')]
     public function list(EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $newsList = $entityManager->getRepository(News::class)->findAll();
 
         return $this->render('news/index.html.twig', [
@@ -27,6 +29,8 @@ class NewsController extends AbstractController
     #[Route('/news/{id}', name: 'game_news_show', requirements: ['id' => '\d+'])]
     public function show(News $news,EntityManagerInterface $entityManager, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $comment = new Comment();
         $comment->setNews($news);
 
@@ -54,6 +58,7 @@ class NewsController extends AbstractController
     #[Route('/news/add', name: 'game_news_add')]
     public function new(EntityManagerInterface $entityManager, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_NEWS_ADD');
         $form = $this->createForm(NewsType::class);
 
         $form->handleRequest($request);
@@ -81,6 +86,7 @@ class NewsController extends AbstractController
     #[Route('/news/edit/{id}', name: 'game_news_edit', requirements: ['id' => '\d+'])]
     public function edit(News $news ,EntityManagerInterface $entityManager, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_NEWS_EDIT');
         $form = $this->createForm(NewsType::class, $news);
 
         $form->handleRequest($request);
@@ -109,6 +115,7 @@ class NewsController extends AbstractController
     #[Route('/news/delete/{id}', name: 'game_news_delete', requirements: ['id' => '\d+'])]
     public function delete(EntityManagerInterface $entityManager, int $id): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $news = $entityManager->getRepository(News::class)->find($id);
 
         if (!$news) {

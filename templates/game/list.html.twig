@@ -8,7 +8,9 @@
             {% for game in games %}
                 <li>
                     {{ game.name }} - {{ game.score }}/100 - <a href="{{ path('app_game_show', { 'id': game.id }) }}">details</a>
-                    <a href="{{ path('app_game_edit', { 'id': game.id }) }}">edit</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_game_edit', { 'id': game.id }) }}">edit</a>
+                    {% endif %}
                 </li>
             {% else %}
                 <li>No games found</li>
@@ -19,6 +21,6 @@
 {% endblock %}
 
 {% block title %}
-Games list
+    Games list
 {% endblock %}
 
