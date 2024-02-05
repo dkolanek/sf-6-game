@@ -67,7 +67,10 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 9. Add Verify email bundle  ``composer require symfonycasts/verify-email-bundle``
 10. Add Doctrine annotations ``composer require doctrine/annotations``
 11. Add mailer ``composer require symfony/mailer``
-12. Add Rate limiter ``composer require symfony/rate-limiter``
+12. Add Rate limiter ``composer require symfony/rate-limiter``  
+13. Add Php Unit test framework ``composer require --dev symfony/test-pack``
+14. Add doctrine test bundle ``composer require --dev dama/doctrine-test-bundle``
+15. Add doctrine fixtures ``composer require --dev doctrine/doctrine-fixtures-bundle``
 
 ## Notes
 1. This is a fork of [dunglas/symfony-docker](https://github.com/dunglas/symfony-docker)
@@ -99,4 +102,10 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 13. Create User ``php bin/console make:user``
 14. Create Auth ``php bin/console make:auth``
 15. Create  manually hash a password  ``php bin/console security:hash-password``
-16. Create registration ``php bin/console make:registration-form``
+16. Create registration ``php bin/console make:registration-form``  
+17. Create the test database ``php bin/console --env=test doctrine:database:create``
+18. Create the tables in the test database  ``php bin/console --env=test doctrine:schema:create``
+19. Create the fixtures ``php bin/console make:fixtures``
+20. Load the fixtures ``php bin/console doctrine:fixtures:load``  
+21. Create application test ``php bin/console make:test``  
+22. Run all tests ``php bin/phpunit``
