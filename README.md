@@ -71,6 +71,8 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 13. Add Php Unit test framework ``composer require --dev symfony/test-pack``
 14. Add doctrine test bundle ``composer require --dev dama/doctrine-test-bundle``
 15. Add doctrine fixtures ``composer require --dev doctrine/doctrine-fixtures-bundle``
+16. Add component messenger ``composer require symfony/messenger``
+17. Add Doctrine Transport ``composer require symfony/doctrine-messenger``
 
 ## Notes
 1. This is a fork of [dunglas/symfony-docker](https://github.com/dunglas/symfony-docker)
@@ -109,3 +111,6 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 20. Load the fixtures ``php bin/console doctrine:fixtures:load``  
 21. Create application test ``php bin/console make:test``  
 22. Run all tests ``php bin/phpunit``
+23. Debug messenger to see all the configured handlers``php bin/console debug:messenger``
+24. Consumer messages ``php bin/console messenger:consume async`` or ``php bin/console messenger:consume async -vv``
+25. show all failed messages ``php bin/console messenger:failed:show``

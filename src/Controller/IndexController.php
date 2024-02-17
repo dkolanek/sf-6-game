@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Message\SendKey;
+use App\Message\SmsKey;
 use App\Service\CodeGenerator;
 use App\Service\GamesGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
@@ -30,6 +34,28 @@ class IndexController extends AbstractController
         return $this->render('index/code.html.twig',[
             'code' => $code,
         ]);
+    }
+
+    #[Route('/send-code', name: 'index.send.code')]
+    public function sendCode(MessageBusInterface $bus): JsonResponse
+    {
+        $bus->dispatch(new SendKey(2));
+        return new JsonResponse([
+            'status' => 'Email sent',
+        ]);
+
+
+    }
+
+    #[Route('/sms-code', name: 'index.sms.code')]
+    public function smsCode(MessageBusInterface $bus): JsonResponse
+    {
+        $bus->dispatch(new SmsKey(1));
+        return new JsonResponse([
+            'status' => 'Sms sent',
+        ]);
+
+
     }
 
     #[Route('/hello/{firstName}', name: 'index.hello', methods: ['GET'])]
