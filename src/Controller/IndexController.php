@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Message\SendKey;
 use App\Message\SmsKey;
 use App\Service\CodeGenerator;
+use App\Service\CodeGeneratorDecorator;
 use App\Service\GamesGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,7 +28,7 @@ class IndexController extends AbstractController
     }
 
     #[Route('/code', name: 'index.code')]
-    public function code(CodeGenerator $codeGenerator): Response
+    public function code(CodeGeneratorDecorator $codeGenerator): Response
     {
         $code = $codeGenerator->generate();
 

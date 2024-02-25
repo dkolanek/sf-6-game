@@ -113,4 +113,5 @@ Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helia
 22. Run all tests ``php bin/phpunit``
 23. Debug messenger to see all the configured handlers``php bin/console debug:messenger``
 24. Consumer messages ``php bin/console messenger:consume async`` or ``php bin/console messenger:consume async -vv``
-25. show all failed messages ``php bin/console messenger:failed:show``
+25. show all failed messages ``php bin/console messenger:failed:show``  
+26. Debugging events ``php bin/console debug:event-dispatcher`` or ``php bin/console debug:event-dispatcher event_name``
